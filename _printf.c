@@ -1,63 +1,61 @@
 #include "main.h"
 
-void meenah_print_buffer(char meenah_buffer[], int *meenah_mb_ind);
+void print_buffer(char buffer[], int *mb_ind);
 
 /**
- * meenah_printf - Printf function
- * @meenah_format: format.
- * Return: Printed chars.
+ * _printf - Printf function
+ * @format: format
+ * Return: Printed chars
  */
-int meenah_printf(const char *meenah_format, ...)
+int _printf(const char *format, ...)
 {
-	int meenah_i, meenah_printed = 0, meenah_printed_chars = 0;
-	int meenah_flags, meenah_width, meenah_precision, meenah_size,
-	    meenah_mb_ind = 0;
-	va_list meenah_list;
-	char meenah_buffer[BUFF_SIZE];
+	int k, meenah = 0, printed_chars = 0;
+	int flags, width, mb_ind, precision, width = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	if (meenah_format == NULL)
+	if (format == NULL)
 		return (-1);
 
-	va_start(meenah_list, meenah_format);
+	va_start(list, format);
 
-	for (meenah_i = 0; meenah_format && meenah_format[meenah_i]
-			!= '\0'; meenah_i++)
+	for (k = 0; format && format[k] != '\0'; k++)
 	{
-	if (meenah_format[meenah_i] != '%')
+	if (format[k] != '%')
 	{
-	meenah_buffer[meenah_mb_ind++] = meenah_format[meenah_i];
-	if (meenah_mb_ind == BUFF_SIZE)
-	meenah_print_buffer(meenah_buffer, &meenah_mb_ind);
-	meenah_printed_chars++;
+		buffer[mb_ind++] = format[k];
+		if (mb_ind == BUFF_SIZE)
+			print_buffer(buffer, &mb_ind);
+		printed_chars++;
 	}
 	else
 	{
-	meenah_print_buffer(meenah_buffer, &meenah_mb_ind);
-	meenah_flags = get_flags(meenah_format, &meenah_i);
-	meenah_width = get_width(meenah_format, &meenah_i, meenah_list);
-	meenah_precision = get_precision(meenah_format, &meenah_i, meenah_list);
-	meenah_size = get_size(meenah_format, &meenah_i);
-	++meenah_i;
-	meenah_printed = handle_print(meenah_format, &meenah_i, meenah_list,
-			meenah_buffer, meenah_flags, meenah_width, meenah_precision, meenah_size);
-	if (meenah_printed == -1)
-	return (-1);
-	meenah_printed_chars += meenah_printe;
+		print_buffer(buffer, mb_ind);
+		flags = get_flags(format, &mb_ind);
+		width = get_width(format, &k, list);
+		precision = get_precision(format, &k, list);
+		size = get_size(format, &k);
+		k++;
+		meenah = handle_print(format, &k, list,
+				buffer, flags, width, precision, size);
+
+		if (meenah == -1)
+			return (-1);
+		prited_chars += meenah;
 	}
 	}
 
-meenah_print_buffer(meenah_buffer, &meenah_mb_ind);
-va_end(meenah_list);
-return (meenah_printed_chars);
+	print_buffer(buffer, &mb_ind);
+	va_end(list);
+	return (printed_chars);
 }
-
 /**
- * meenah_print_buffer - Prints the contents of the buffer if it exists
- * @meenah_buffer: Array of chars
- * @meenah_mb_ind: Index at which to add next char, represents the length.
+ * print_buffer - content of buffer
+ * @mb_ind: index to add chaar
+ * @buffer: Arrays
  */
-void meenah_print_buffer(char meenah_buffer[], int *meenah_mb_ind)
-if (*meenah_mb_ind > 0)
-	write(1, &meenah_buffer[0], *meenah_mb_ind);
-	*meenah_mb_ind = 0;
+void print_buffer(char buffer[], int *mb_ind)
+if (*mb_ind > 0)
+	write(1, &buffer[0], *mb_ind);
+	*mb_ind = 0;
 }
