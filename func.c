@@ -2,48 +2,48 @@
 
 /**
  * _mee_print_unsigned - Prints an unsigned
- * @types: List a of arguments
+ * @types: Argument
  * @buffer: Buffer array
- * @flags: Calculates flags
+ * @flags: Active flags
  * @width: get width
- * @precision: Precision specification
  * @size: Size specifier
+ * @precision: Precision spec
  * Return: Number of chars printed
  */
 int _mee_print_unsigned(va_list types, char buffer[],
 		int size, int precision, int width, int flags)
 {
-	int i = BUFF_SIZE - 2;
+	int k = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 
 	num = _mee_convert_size_unsgnd(num, size);
 
 	if (num == 0)
-		buffer[i--] = '0';
+		buffer[k--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
 
-	for (int i = 0; num > 0; i++)
+	for (int k = 0; num > 0; k++)
 	{
-		buffer[i--] = (num % 10) + '0';
+		buffer[k--] = (num % 10) + '0';
 		num /= 10;
 	}
-	return (_mee_write_unsgnd(0, i, buffer, flags, width, precision, size));
+	return (_mee_write_unsgnd(0, k, buffer, flags, width, precision, size));
 }
 
 /**
- * _mee_print_octal - Prints unsigned number in octal
- * @types: arguments
- * @buffer: array to handle print
- * @flags: active flags
+ * _mee_print_octal - Prints unsigned number
+ * @types: List argument
  * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
+ * @size: Size spec
+ * @buffer: Buffer array
+ * @flags: Active flag
+ * @precision: Precision spec
  * Return: Number of chars
  */
 int _mee_print_octal(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int m = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
@@ -52,29 +52,29 @@ int _mee_print_octal(va_list types, char buffer[],
 		num = _mee_convert_size_unsgnd(num, size);
 
 	if (num == 0)
-		buffer[i--] = '0';
+		buffer[m--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
-		buffer[i--] = (num % 8) + '0';
+		buffer[m--] = (num % 8) + '0';
 		num /= 8;
 	}
 
 	if (flags & F_HASH && init_num != 0)
-		buffer[i--] = '0';
-	i++;
-	return (_mee_write_unsgnd(0, i, buffer, flags, width, precision, size));
+		buffer[m--] = '0';
+	m++;
+	return (_mee_write_unsgnd(0, m, buffer, flags, width, precision, size));
 }
 
 /**
- * _mee_print_hexadecimal - Prints an unsigned number in hexadecimal notation
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
+ * _mee_print_hexadecimal - Prints an unsigned number in hexa
+ * @size: Size spec
+ * @types: Argument
  * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
+ * @flags: ACtive flags
+ * @buffer: Buffer array
+ * @precision: Precision spec
  * Return: Number of chars printed
  */
 int _mee_print_hexadecimal(va_list types, char buffer[],
@@ -82,22 +82,31 @@ int _mee_print_hexadecimal(va_list types, char buffer[],
 	return (_mee_print_hexa(types, "0123456789abcdef", buffer,
 				flags, 'x', width, precision, size));
 }
-
+/**
+ * print_hexa_upper - Prints an unsigned num
+ * @types: List of argument
+ * @buffer: Buffer
+ * @flags: Cal active flags
+ * @precision: Precision spec
+ * @size: Size spec
+ * @width: get width
+ * Return: Numbers of chars
+ */
 int _mee_print_hexa_upper(va_list types, char buffer[],
 		int flags, int width, precision, size);
 }
 
 /**
- * _mee_print_hexa - Prints a hexadecimal number in lower or upper
- * @types: Lista of arguments
- * @map_to: Array of values to map the number to
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @flag_ch: Calculates active flags
+ * _mee_print_hexa - Prints a hexadecimal num
+ * @types: Argument
  * @width: get width
- * @precision: Precision specification
+ * @size: Size specf
  * @size: Size specifier
- * @size: Size specification
+ * @map_to: Array of values
+ * @precision: Precision spec
+ * @flag_ch: Flags
+ * @flags: Active flags
+ * @buffer: Buffer array
  * Return: Number of chars printed
  */
 int _mee_print_hexa(va_list types, char map_to[], char buffer[],

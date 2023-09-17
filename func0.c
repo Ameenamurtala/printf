@@ -1,133 +1,183 @@
 #include "main.h"
 
-int print_char(va_list meenah, char meenah_buffer[],
-		int meenah_flags, int meenah_width,
-		int meenah_precision, int meenah_size)
+/**
+ * print_char - Prints a char
+ * @size: Size
+ * @types: Argument
+ * @buffer: Buffer
+ * @precision: Precision spec
+ * @flags: Active flags
+ * @width: Widths
+ * Return: Number of chars printed
+ */
+int print_char(va_list types, char buffer[], int size,
+		int precision, int flags, int width)
 {
-	char c = va_arg(meenah, int);
-	return (handle_write_char(c, meenah_buffer,
-			meenah_flags, meenah_width,
-			meenah_precision, meenah_size));
+	char c = va_arg(types, int);
+
+	return (handle_write_char(c, flags, size, width, buffer, precision));
 }
 
-int print_string(va_list meenah, char meenah_buffer[],
-		int meenah_flags, int meenah_width,
-		int meenah_precision, int meenah_size)
+/**
+ * print_binary - unsigned num
+ * @flags: Active array
+ * @buffer: Buffer
+ * @types: Argumt
+ * @precision: Precision spec
+ * @size: Size spec
+ * @width: Width
+ * Return: Number of char printed
+ */
+
+int print_binary(va_list types, char buffer[],
+		int width, int size, int buffer, int flags, int precision)
 {
-	int meenah_length = 0, i;
-	char *meenah_str = va_arg(meenah, char *);
+	unsigned int b, c, d, add;
+	unsigned int e[32];
+	int sum;
 
-	UNUSED(meenah_buffer);
-	UNUSED(meenah_size);
-	UNUSED(meenah_precision);
-	UNUSED(meenah_width);
-	UNUSED(meenah_flags);
+	UNUSED(width);
+	UNUSED(size);
+	UNUSED(precision);
+	UNUSED(buffer);
+	UNUSED(flags);
 
-	if (meenah_str == NULL)
+	e[0] = b / c;
+	b = va_arg(types, unsigned int);
+	c = 2147483648;
+
+	for (d = 1; d < 32; d++)
 	{
-		meenah_str = "(null)
-			if (meenah_precision >= 6)
-				meenah_str = "      ";
+		c /= 2;
+		e[i] = (b / c) % 2;
 	}
-
-	for (; meenah_str[meenah_length] != '\0'; meenah_length++)
-		if (meenah_precision >= 0
-				&& meenah_precision < meenah_length)
-			meenah_length = meenah_precision;
-	if (meenah_width > meenah_length)
+	for (e = 0, add = 0, sum = 0; e < 32; d++)
 	{
-		if (meenah_flags & F_MINUS)
+		add += e[d];
+
+		if (add || d == 31)
 		{
-			write(1, &meenah_str[0], meenah_length)
-				((i = meenah_width - meenah_length; i > 0; i--)
-				 write(1, " ", 1);
-				 return (meenah_width);
-				 }
-				 else
-				 {
-				 for (i = meenah_width - meenah_length; i > 0;
-						 write(1, " ", 1);
-						 write(1, &meenah_str[0], meenah_length);
-						 return (meenah_width);
-						 }
-						 }
-						 return (write(1, meenah_str, meenah_length));
-}
+			char a = '0' + e[d];
 
-int print_percent(va_list meenah, char meenah_buffer[],int meenah_flags,
-	int meenah_width, int meenah_precision, int meenah_size)
-{
-UNUSED(meenah);
-UNUSED(meenah_buffer);
-UNUSED(meenah_flags);
-UNUSED(meenah_width);
-UNUSED(meenah_precision);
-UNUSED(meenah_size);
-return (write(1, "%%", 1));
-}
-
-int print_int(va_list meenah, char meenah_buffer[],int meenah_flags,
-		int meenah_width, int meenah_precision, int meenah_size)
-{
-	int meenah_i = BUFF_SIZE - 2;
-	int meenah_is_negative = 0;
-	long int meenah_n = va_arg(meenah, long int);
-	unsigned long int meenah_num;
-	
-	meenah_n = convert_size_number(meenah_n, meenah_size);
-	
-	if (meenah_n == 0)
-		meenah_buffer[meenah_i--] = '0';
-	meenah_buffer[BUFF_SIZE - 1] = '\0';
-	meenah_num = (unsigned long int)meenah_n;
-	if (meenah_n < 0)
-	{
-		meenah_num = (unsigned long int)((-1) * meenah_n);
-		meenah_is_negative = 1;
-	}
-	while (meenah_num > 0)
-	{
-		meenah_buffer[meenah_i--] = (meenah_num % 10) + '0';
-		meenah_num /= 10;
-	}
-	meenah_i++;
-	return (write_number(meenah_is_negative, meenah_i,
-				meenah_buffer, meenah_flags, meenah_width,
-				meenah_precision, meenah_size));
-}
-
-int print_binary(va_list meenah, char meenah_buffer[],
-		int meenah_flags, int meenah_width,
-		int meenah_precision, int meenah_size)
-{
-	unsigned int meenah_n, meenah_m, meenah_i, meenah_sum;
-	unsigned int meenah_a[32];
-	int meenah_count;
-
-	UNUSED(meenah_buffer);
-	UNUSED(meenah_flags);
-	UNUSED(meenah_width);
-	UNUSED(meenah_precision);
-	UNUSED(meenah_size);
-
-	meenah_n = va_arg(meenah, unsigned int);
-	meenah_m = 2147483648;
-	meenah_a[0] = meenah_n / meenah_m;
-
-	for (meenah_i = 1; meenah_i < 32; meenah_i++)
-	{
-		meenah_m /= 2;
-		meenah_a[meenah_i] = (meenah_n / meenah_m) % 2;
-	}
-	for (meenah_i = 0, meenah_sum = 0,
-			meenah_count = 0; meenah_i < 32; meenah_i++)
-	{
-		meenah_sum += meenah_a[meenah_i];
-		if (meenah_sum || meenah_i == 31)
-		{
-			char meenah_z = '0' + meenah_a[meenah_i];
-			write(1, &meenah_z, 1);
-			meenah_count++;
+			write(1, &a, 1);
+			sum++;
 		}
 	}
-	return (meenah_count);
+	return (sum);
+}
+
+/**
+ * print_int - Print int
+ * @types: Argumt
+ * @buffer: Buffer
+ * @flags: Active flags
+ * @width: get width
+ * @precision: Precision spec
+ * @size: Size spec
+ * Return: Num of char printd
+ */
+
+int print_int(va_list types, char buffer[],
+		int precision, int size, int flags, int width)
+{
+	int j = BUFF_SIZE - 2;
+	int iss_neg = 0;
+	long int a = va_arg(types, long int);
+	unsigned long int add;
+
+	a = convert_size_number(a, size);
+
+	if (a == 0)
+		buffer[j--] = '0';
+	buffer[BUFF_SIZE - 1] = '\0';
+	add = (unsigned long int)a;
+
+	if (a < 0)
+	{
+		add = (unsigned long int)((-1) * a);
+		iss_neg = 1;
+	}
+	while (add > 0)
+	{
+		buffer[j--] = (add % 10) + '0';
+		add /= 10;
+	}
+	j++;
+	return (write_number(iss_neg, j, buffer, precision, size, flags, width));
+}
+
+/**
+ * print_percent - Prints a percent sign
+ * @types: Arguments
+ * @buffer: Buffer
+ * @width: width
+ * @precision: Precision spec
+ * @size: Size
+ * @flags: Active flags
+ * Return: Num of char printd
+ */
+
+int print_percent(va_list types, char buffer[],
+		int precision, int width, int size, int flags)
+{
+	UNUSED(types);
+	UNUSED(buffer);
+	UNUSED(precision);
+	UNUSED(width);
+	UNUSED(size);
+	UNUSED(flags);
+
+	return (write(1, "%%", 1));
+}
+
+/**
+ * print_string - Prints a string
+ * @types: Arguments
+ * @buffer: Buffer
+ * @size: Size
+ * @flags: Flags
+ * @width: width.
+ * @precision: Precision spec
+ * Return: Num of chars
+ */
+int print_string(va_list types, char buffer[], int size, int width,
+		int precision, int flags, int size)
+{
+	int len = 0, k;
+	char *str = va_arg(types, char *);
+
+	UNUSED(buffer);
+	UNUSED(size);
+	UNUSED(precision);
+	UNUSED(flags);
+	UNUSED(width);
+
+	if (str == NULL)
+	{
+		str = "(null)";
+		if (precision >= 6)
+			str = "      ";
+	}
+	while (str[len] != '\0')
+		len++;
+	if (precision >= 0 && precision < len)
+		len = precision;
+	if (width > len)
+	{
+		if (F_MINUS & flags)
+		{
+			write(1, &str[0], len);
+			for (i = width - len; k > 0; k--)
+				write(1, " ", 1);
+			return (width);
+		}
+		else
+		{
+			for (k = width - len; k > 0; k--)
+				write(1, " ", 1);
+			write(1, &str[0], len);
+			return (width);
+		}
+	}
+	return (write(1, str, len));
+}
