@@ -2,7 +2,7 @@
 /**
  * print_pointer - Value
  * @types: Arguments
- * @buffer: Array
+ * @bee: Array
  * @size: size
  * @width: Width
  * @flags: Flags
@@ -10,7 +10,7 @@
  * Return: Num
  */
 
-int print_pointer(va_list types, char buffer[],
+int print_pointer(va_list types, char bee[],
 		int size, int width, int flags, int precision)
 {
 	char extra_c = 0, padd = ' ';
@@ -24,11 +24,11 @@ int print_pointer(va_list types, char buffer[],
 
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
-	buffer[BUFF_SIZE]
+	bee[BUFF_SIZE]
 		num_addrs = (unsigned long)addrs;
 	while (num_addrs > 0)
 	{
-		buffer[ind--] = map_to[num_addrs % 16];
+		bee[ind--] = map_to[num_addrs % 16];
 		num_addrs /= 16;
 		len++;
 	}
@@ -39,21 +39,21 @@ int print_pointer(va_list types, char buffer[],
 	else if (flags & F_SPACE)
 		extra_c = ' ', len++;
 	ind++;
-	return (write_pointer(buffer, ind, len,
+	return (write_pointer(bee, ind, len,
 				width, flags, padd, extra_c, padd_start));
 }
 
 /**
  * print_non_printable - Ascii
  * @types: Argument
- * @buffer: Buffer
+ * @bee: Bee
  * @size: Size
  * @width: Width
  * @flags: Flags
  * @precision: Precision
  * Return: Num of char
  */
-int print_non_printable(va_list types, char buffer[],
+int print_non_printable(va_list types, char bee[],
 		int size, int width, int flags, int precision)
 {
 	int k = 0, offset = 0;
@@ -69,19 +69,19 @@ int print_non_printable(va_list types, char buffer[],
 	while (str[k] != '\0')
 	{
 		if (is_printable(str[k]))
-			buffer[k + offset] = str[k];
+			bee[k + offset] = str[k];
 		else
-			offset += append_hexa_code(str[k], buffer, k + offset);
+			offset += append_hexa_code(str[k], bee, k + offset);
 		k++;
 	}
-	buffer[k + offset] = '\0';
-	return (write(1, buffer, k + offset));
+	bee[k + offset] = '\0';
+	return (write(1, bee, k + offset));
 }
 
 /**
  * print_reverse - Print
  * @types: Arguments
- * @buffer: Buffer
+ * @bee: Bee
  * @size: Size
  * @width: Width
  * @flags:  Flags
@@ -89,13 +89,13 @@ int print_non_printable(va_list types, char buffer[],
  * Return: Nums
  */
 
-int print_reverse(va_list types, char buffer[],
+int print_reverse(va_list types, char bee[],
 		int size, int width, int flags, int precision)
 {
 	char *str;
 	int k, add = 0;
 
-	UNUSED(buffer);
+	UNUSED(bee);
 	UNUSED(width);
 	UNUSED(flags);
 	UNUSED(precision);
@@ -121,14 +121,14 @@ int print_reverse(va_list types, char buffer[],
 /**
  * print_rot13string - Print
  * @types: Arguments
- * @buffer: Buffe
+ * @bee: Bee
  * @size: Size
  * @width: Width
  * @flags: Flags
  * @precision: Precision
  * Return: Num of char
  */
-int print_rot13string(va_list types, char buffer[],
+int print_rot13string(va_list types, char bee[],
 		int size, int width, int flags, int precision)
 {
 	char c;
@@ -140,7 +140,7 @@ int print_rot13string(va_list types, char buffer[],
 
 	str = va_arg(types, char *);
 
-	UNUSED(buffer);
+	UNUSED(bee);
 	UNUSED(size);
 	UNUSED(width);
 	UNUSED(flags);
