@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _mee_print_unsigned - Prints an unsigned
+ * print_unsigned - Prints an unsigned
  * @types: Argument
  * @buffer: Buffer array
  * @flags: Active flags
@@ -10,28 +10,29 @@
  * @precision: Precision spec
  * Return: Number of chars printed
  */
-int _mee_print_unsigned(va_list types, char buffer[],
+int print_unsigned(va_list types, char buffer[],
 		int size, int precision, int width, int flags)
 {
 	int k = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 
-	num = _mee_convert_size_unsgnd(num, size);
+	num = convert_size_unsgnd(num, size);
 
 	if (num == 0)
 		buffer[k--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
 
-	for (int k = 0; num > 0; k++)
+	while (num > 0)
 	{
 		buffer[k--] = (num % 10) + '0';
 		num /= 10;
 	}
-	return (_mee_write_unsgnd(0, k, buffer, flags, width, precision, size));
+	k++;
+	return (write_unsgnd(0, k, buffer, flags, width, precision, size));
 }
 
 /**
- * _mee_print_octal - Prints unsigned number
+ * print_octal - Prints unsigned number
  * @types: List argument
  * @width: get width
  * @size: Size spec
@@ -40,16 +41,16 @@ int _mee_print_unsigned(va_list types, char buffer[],
  * @precision: Precision spec
  * Return: Number of chars
  */
-int _mee_print_octal(va_list types, char buffer[],
+int print_octal(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
 {
 	int m = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
-	UNUSED(width)
+	UNUSED(width);
 
-		num = _mee_convert_size_unsgnd(num, size);
+	num = _mee_convert_size_unsgnd(num, size);
 
 	if (num == 0)
 		buffer[m--] = '0';
@@ -64,11 +65,11 @@ int _mee_print_octal(va_list types, char buffer[],
 	if (flags & F_HASH && init_num != 0)
 		buffer[m--] = '0';
 	m++;
-	return (_mee_write_unsgnd(0, m, buffer, flags, width, precision, size));
+	return (write_unsgnd(0, m, buffer, flags, width, precision, size));
 }
 
 /**
- * _mee_print_hexadecimal - Prints an unsigned number in hexa
+ * print_hexadecimal - Prints an unsigned number in hexa
  * @size: Size spec
  * @types: Argument
  * @width: get width
@@ -77,9 +78,10 @@ int _mee_print_octal(va_list types, char buffer[],
  * @precision: Precision spec
  * Return: Number of chars printed
  */
-int _mee_print_hexadecimal(va_list types, char buffer[],
+int print_hexadecimal(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
-	return (_mee_print_hexa(types, "0123456789abcdef", buffer,
+{
+	return (print_hexa(types, "0123456789abcdef", buffer,
 				flags, 'x', width, precision, size));
 }
 /**
@@ -92,12 +94,15 @@ int _mee_print_hexadecimal(va_list types, char buffer[],
  * @width: get width
  * Return: Numbers of chars
  */
-int _mee_print_hexa_upper(va_list types, char buffer[],
-		int flags, int width, precision, size);
+int print_hexa_upper(va_list types, char buffer[],
+		int flags, int width, int precision, int size)
+{
+	return (print_hexa(types, "0123456789ABCDEF", buffer,
+				flags, 'X', width, precision, size));
 }
 
 /**
- * _mee_print_hexa - Prints a hexadecimal num
+ * print_hexa - Prints a hexadecimal num
  * @types: Argument
  * @width: get width
  * @size: Size specf
@@ -109,30 +114,32 @@ int _mee_print_hexa_upper(va_list types, char buffer[],
  * @buffer: Buffer array
  * Return: Number of chars printed
  */
-int _mee_print_hexa(va_list types, char map_to[], char buffer[],
+int print_hexa(va_list types, char map_to[], char buffer[],
 		int flags, char flag_ch, int size, int width, int precision)
 {
-	int i = BUFF_SIZE - 2;
+	int j = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
 	UNUSED(width);
-	num = _mee_convert_size_unsgnd(num, size);
+	num = convert_size_unsgnd(num, size);
 
 	if (num == 0)
-		buffer[i--] = '0';
+		buffer[j--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
 
-	for (; num > 0; i++)
+	while (num > 0)
 	{
-		buffer[i--] = map_to[num % 16];
+		buffer[j--] = map_to[num % 16];
 		num /= 16;
 	}
 
 	if (flags & F_HASH && init_num != 0)
 	{
-		buffer[i--] = flag_ch;
-		buffer[i--] = '0';
+		buffer[j--] = flag_ch;
+		buffer[j--] = '0';
 	}
-	return (_mee_write_unsgnd(0, i, buffer, flags, width, precision, size));
+	j++;
+
+	return (write_unsgnd(0, j, buffer, flags, width, precision, size));
 }

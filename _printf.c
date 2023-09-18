@@ -1,6 +1,6 @@
 #include "main.h"
 
-void print_buffer(char buffer[], int *mb_ind);
+void print_buffer(char buffer[], int *buff_ind);
 
 /**
  * _printf - Printf function
@@ -10,7 +10,7 @@ void print_buffer(char buffer[], int *mb_ind);
 int _printf(const char *format, ...)
 {
 	int k, meenah = 0, printed_chars = 0;
-	int flags, width, mb_ind, precision, width = 0;
+	int flags, width, buff_ind, precision, width = 0;
 	va_list list;
 	char buffer[BUFF_SIZE];
 
@@ -23,15 +23,15 @@ int _printf(const char *format, ...)
 	{
 	if (format[k] != '%')
 	{
-		buffer[mb_ind++] = format[k];
-		if (mb_ind == BUFF_SIZE)
-			print_buffer(buffer, &mb_ind);
+		buffer[buff_ind++] = format[k];
+		if (buff_ind == BUFF_SIZE)
+			print_buffer(buffer, &buff_ind);
 		printed_chars++;
 	}
 	else
 	{
-		print_buffer(buffer, mb_ind);
-		flags = get_flags(format, &mb_ind);
+		print_buffer(buffer, buff_ind);
+		flags = get_flags(format, &buff_ind);
 		width = get_width(format, &k, list);
 		precision = get_precision(format, &k, list);
 		size = get_size(format, &k);
@@ -41,11 +41,11 @@ int _printf(const char *format, ...)
 
 		if (meenah == -1)
 			return (-1);
-		prited_chars += meenah;
+		printed_chars += meenah;
 	}
 	}
 
-	print_buffer(buffer, &mb_ind);
+	print_buffer(buffer, &buff_ind);
 	va_end(list);
 	return (printed_chars);
 }
@@ -55,7 +55,7 @@ int _printf(const char *format, ...)
  * @buffer: Arrays
  */
 void print_buffer(char buffer[], int *mb_ind)
-if (*mb_ind > 0)
-	write(1, &buffer[0], *mb_ind);
-	*mb_ind = 0;
+if (*buff_ind > 0)
+	write(1, &buffer[0], *buff_ind);
+	*buff_ind = 0;
 }
