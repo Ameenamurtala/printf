@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 	else
 	{
 		print_buffer(buffer, buff_ind);
-		flags = get_flags(format, &buff_ind);
+		flags = get_flags(format, &k);
 		width = get_width(format, &k, list);
 		precision = get_precision(format, &k, list);
 		size = get_size(format, &k);
@@ -50,11 +50,12 @@ int _printf(const char *format, ...)
 	return (printed_chars);
 }
 /**
- * print_buffer - content of buffer
- * @mb_ind: index to add chaar
+ * print_buffer - buffer
+ * @buff_ind: index
  * @buffer: Arrays
  */
-void print_buffer(char buffer[], int *mb_ind)
+void print_buffer(char buffer[], int *buff_ind)
+{
 if (*buff_ind > 0)
 	write(1, &buffer[0], *buff_ind);
 	*buff_ind = 0;

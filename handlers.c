@@ -2,17 +2,17 @@
 
 /**
  * handle_write_char - String
- * @c: char types.
+ * @c: char
  * @buffer: Buffer
- * @size: Size
  * @width: Width
- * @precision: Precision spec
+ * @precision: Precision
  * @flags: Flags
- * Return: Number of chars
+ * @size: size
+ * Return: Number
  */
 
 int handle_write_char(char c, char buffer[],
-		int size, int width, int precision, int flags)
+		int width, int precision, int flags, int size)
 {
 	int k = 0;
 	char padd = ' ';
@@ -44,14 +44,14 @@ int handle_write_char(char c, char buffer[],
  * @is_negative: Arguments
  * @ind: char typ
  * @width: Width
+ * @size: Size
  * @buffer: Buffer
  * @flags: flags
- * @size: Size
  * @precision: precision
- * Return: Number of chars printed.
+ * Return: Number of chars
  */
 int write_number(int is_negative, int ind, int width,
-		char buffer[], int flags, int size, int precision)
+		int size, char buffer[], int flags, int precision)
 {
 	int len = BUFF_SIZE - ind - 1;
 	char padd = ' ', extra_ch = 0;
@@ -79,8 +79,8 @@ int write_number(int is_negative, int ind, int width,
  * @width: Width
  * @len: Len
  * @padd: Pading
- * @extra_c: Extra char
- * Return: Number of printed chars.
+ * @extra_c: Extra
+ * Return: Num
  */
 int write_num(int ind, char buffer[],
 		int prec, int flags, int width,
@@ -101,7 +101,7 @@ int write_num(int ind, char buffer[],
 	if (width > len)
 	{
 		for (j = 1; j < width - len + 1; j++)
-			buffer[i] = padd;
+			buffer[j] = padd;
 		buffer[j] = '\0';
 		if (F_MINUS & flags && padd == ' ')
 		{
@@ -129,15 +129,15 @@ int write_num(int ind, char buffer[],
 }
 
 /**
- * write_unsgnd - Unsigned number
+ * write_unsgnd - Unsgned
  * @is_negative: Nums
  * @ind: Index
  * @buffer: Array
- * @width: Width spec
+ * @width: Width
  * @size: Size
- * @precision: Precision spec
+ * @precision: Precision
  * @flags: Flags
- * Return: Nums written
+ * Return: Nums
  */
 
 int write_unsgnd(int is_negative, int ind,
@@ -179,7 +179,7 @@ int write_unsgnd(int is_negative, int ind,
 }
 
 /**
- * write_pointer - Memory address
+ * write_pointer - address
  * @buffer: Arrays
  * @ind: Index
  * @flags: Flags
@@ -231,7 +231,6 @@ int write_pointer(char buffer[], int ind, int flags,
 	}
 	buffer[--ind] = 'x';
 	buffer[--ind] = '0';
-
 	if (extra_c)
 		buffer[--ind] = extra_c;
 	return (write(1, &buffer[ind], BUFF_SIZE - ind - 1));
