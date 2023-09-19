@@ -6,8 +6,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-int putchr(char c);
-
 #define UNUSED(x) (void)(x)
 #define BUFF_SIZE 1024
 
@@ -19,9 +17,10 @@ int putchr(char c);
 
 #define S_LONG 2
 #define S_SHORT 1
+
 /**
  * struct fmt - struct
- * @fmt: formt
+ * @fmt: format
  * @fn: fn
  */
 struct fmt
@@ -71,7 +70,6 @@ int print_non_printable(va_list types, char buffer[],
 int print_pointer(va_list types, char buffer[],
 	int flag, int sizes, int width, int prec);
 
-int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *p,
 va_list list, char buffer[], int flag, int sizes, int width, int prec);
 
