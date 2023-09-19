@@ -5,20 +5,20 @@
  * @p: List
  * Return: size
  */
-int get_size(const char *format, int *p)
+int get_size(const char *format, int *i)
 {
-	int curr_i = *p + 1;
-	int sizes = 0;
+	int curr_i = *i + 1;
+	int size = 0;
 
 	if (format[curr_i] == 'l')
 		size = S_LONG;
 	else if (format[curr_i] == 'h')
-		sizes = S_SHORT;
+		size = S_SHORT;
 
-	if (sizes == 0)
-		*p = curr_i - 1;
+	if (size == 0)
+		*i = curr_i - 1;
 	else
-		*p = curr_i;
+		*i = curr_i;
 
 	return (size);
 }
