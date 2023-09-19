@@ -1,1 +1,1 @@
-This is a readme of 0x11. C - printf
+This is a group project done by me and Murtala Amina for alx.
