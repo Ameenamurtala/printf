@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * get_width - Cal
+ * get_width - Calculates the width for printing
  * @format: Formatted
  * @p: List
  * @list: list
