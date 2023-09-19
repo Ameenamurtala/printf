@@ -1,18 +1,18 @@
 #include "main.h"
 /**
  * handle_print - Prints
- * @fmt: Formatted
+ * @fmt: Format
  * @list: List
  * @ind: imd
- * @bee: Bee
- * @flags: Cal
+ * @buffer: Buffer
+ * @flag: Cal
  * @width: width
- * @precision: Prec
- * @size: Size
+ * @prec: Prec
+ * @sizes: Size
  * Return: 1 or 2;
  */
-int handle_print(const char *fmt, int *ind, va_list list, char bee[],
-	int flags, int width, int precision, int size)
+int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
+	int flag, int sizes, int width, int prec)
 {
 	int m, unknow_len = 0, printed_chars = -1;
 	fmt_t fmt_types[] = {
@@ -24,7 +24,7 @@ int handle_print(const char *fmt, int *ind, va_list list, char bee[],
 	};
 	for (m = 0; fmt_types[m].fmt != '\0'; m++)
 		if (fmt[*ind] == fmt_types[m].fmt)
-			return (fmt_types[m].fn(list, bee, flags, width, precision, size));
+			return (fmt_types[m].fn(list, buffer, flag, sizes, width, prec));
 
 	if (fmt_types[m].fmt == '\0')
 	{

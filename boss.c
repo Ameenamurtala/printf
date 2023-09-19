@@ -5,7 +5,7 @@
  * @p: List
  * Return: size
  */
-int get_bsize(const char *format, int *p)
+int get_size(const char *format, int *p)
 {
 	int curr_i = *p + 1;
 	int sizes = 0;

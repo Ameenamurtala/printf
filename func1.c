@@ -2,112 +2,112 @@
 /**
  * print_pointer - Value
  * @types: Arguments
- * @bee: Array
- * @size: size
+ * @buffer: Array
+ * @sizes: size
  * @width: Width
- * @flags: Flags
- * @precision: Precision
+ * @flag: Flag
+ * @prec: Prec
  * Return: Num
  */
 
-int print_pointer(va_list types, char bee[],
-		int size, int width, int flags, int precision)
+int print_pointer(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	char extra_c = 0, padd = ' ';
-	int ind = BUFF_SIZE - 2, len = 2, padd_start = 1;
+	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1;
 	unsigned long num_addrs;
 	char map_to[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
 
 	UNUSED(width);
-	UNUSED(size);
+	UNUSED(sizes);
 
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
-	bee[BUFF_SIZE]
+	buffer[BUFF_SIZE]
 		num_addrs = (unsigned long)addrs;
 	while (num_addrs > 0)
 	{
-		bee[ind--] = map_to[num_addrs % 16];
+		buffer[ind--] = map_to[num_addrs % 16];
 		num_addrs /= 16;
-		len++;
+		length++;
 	}
-	if ((flags & F_ZERO) && !(flags & F_MINUS))
+	if ((flag & F_ZERO) && !(flag & F_MINUS))
 		padd = '0';
 	if (flags & F_PLUS)
-		extra_c = '+', len++;
+		extra_c = '+', length++;
 	else if (flags & F_SPACE)
-		extra_c = ' ', len++;
+		extra_c = ' ', length++;
 	ind++;
-	return (write_pointer(bee, ind, len,
-				width, flags, padd, extra_c, padd_start));
+	return (write_pointer(buffer, ind, length,
+				width, flag, padd, extra_c, padd_start));
 }
 
 /**
  * print_non_printable - Ascii
  * @types: Argument
- * @bee: Bee
- * @size: Size
+ * @buffer: Buffer
+ * @sizes: Sizes
  * @width: Width
- * @flags: Flags
- * @precision: Precision
+ * @flag: Flag
+ * @prec: Prec
  * Return: Num of char
  */
-int print_non_printable(va_list types, char bee[],
-		int size, int width, int flags, int precision)
+int print_non_printable(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	int k = 0, offset = 0;
 	char *str = va_arg(types, char *);
 
+	UNUSED(flag);
 	UNUSED(size);
 	UNUSED(width);
-	UNUSED(flags);
-	UNUSED(precision);
+	UNUSED(prec);
 
 	if (str == NULL)
 		return (write(1, "(null)", 6));
 	while (str[k] != '\0')
 	{
 		if (is_printable(str[k]))
-			bee[k + offset] = str[k];
+			buffer[k + offset] = str[k];
 		else
-			offset += append_hexa_code(str[k], bee, k + offset);
+			offset += append_hexa_code(str[k], buffer, k + offset);
 		k++;
 	}
-	bee[k + offset] = '\0';
-	return (write(1, bee, k + offset));
+	buffer[k + offset] = '\0';
+	return (write(1, buffer, k + offset));
 }
 
 /**
  * print_reverse - Print
  * @types: Arguments
- * @bee: Bee
- * @size: Size
+ * @buffer: Buffer
+ * @flag: flag
+ * @sizes: Sizes
  * @width: Width
- * @flags:  Flags
- * @precision: Precision
+ * @prec: Prec
  * Return: Nums
  */
 
-int print_reverse(va_list types, char bee[],
-		int size, int width, int flags, int precision)
+int print_reverse(va_list types, char buffer[],
+		int sizes, int width, int flag, int prec)
 {
 	char *str;
 	int k, add = 0;
 
-	UNUSED(bee);
+	UNUSED(buffer);
+	UNUSED(sizes);
 	UNUSED(width);
-	UNUSED(flags);
-	UNUSED(precision);
+	UNUSED(flag);
 	str = va_arg(types, char *);
 
 	if (str == NULL)
 	{
-		UNUSED(precision);
+		UNUSED(prec);
 		str = ")Null(";
 	}
 	for (k = 0; str[k]; k++)
-		;
+
 	for (k = k - 1; k >= 0; k--)
 	{
 		char x = str[k];
@@ -121,30 +121,30 @@ int print_reverse(va_list types, char bee[],
 /**
  * print_rot13string - Print
  * @types: Arguments
- * @bee: Bee
- * @size: Size
+ * @buffer: Buffer
+ * @sizes: Sizes
  * @width: Width
- * @flags: Flags
- * @precision: Precision
+ * @flag: Flag
+ * @prec: Prec
  * Return: Num of char
  */
-int print_rot13string(va_list types, char bee[],
-		int size, int width, int flags, int precision)
+int print_rot13string(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	char c;
 	char *str;
 	unsigned int n, m;
-	int sum = 0;
+	int count = 0;
 	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
 	str = va_arg(types, char *);
 
-	UNUSED(bee);
-	UNUSED(size);
+	UNUSED(buffer);
+	UNUSED(sizes);
 	UNUSED(width);
-	UNUSED(flags);
-	UNUSED(precision);
+	UNUSED(flag);
+	UNUSED(prec);
 
 	if (str == NULL)
 		str = "(AHYY)";
@@ -156,16 +156,16 @@ int print_rot13string(va_list types, char bee[],
 			{
 				c = out[m];
 				write(1, &c, 1);
-				sum++;
+				count++;
 				break;
 			}
 		}
 		if (!in[m])
 		{
-			c = str[i];
+			c = str[n];
 			write(1, &c, 1);
-			sum++;
+			count++;
 		}
 	}
-	return (sum);
+	return (count);
 }

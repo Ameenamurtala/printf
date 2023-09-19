@@ -4,7 +4,7 @@
  * @format: Formatted
  * @p: List
  * @list: list
- * Return: eze
+ * Return: prec
  */
 int get_prec(const char *format, int *p, va_list list)
 {
@@ -12,9 +12,9 @@ int get_prec(const char *format, int *p, va_list list)
 	int prec = -1;
 
 	if (format[curr_i] != '.')
-		return (eze);
+		return (prec);
 
-	eze = 0;
+	prec = 0;
 
 	for (curr_i += 1; format[curr_i] != '\0'; curr_i++)
 	{

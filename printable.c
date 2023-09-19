@@ -16,7 +16,7 @@ int is_printable(char c)
 /**
  * append_hexa_code - Ap
  * @buffer: Arr
- * @i: Index
+ * @p: Index
  * @ascii_code: ASSCI
  * Return: Always 3
  */
@@ -52,14 +52,14 @@ int is_digit(char c)
 /**
  * convert_size_number - Casts
  * @num: Num
- * @size: Num
+ * @sizes: Num
  * Return: Cast
  */
 long int convert_size_number(long int num, int sizes)
 {
-	if (size == S_LONG)
+	if (sizes == S_LONG)
 		return (num);
-	else if (size == S_SHORT)
+	else if (sizes == S_SHORT)
 		return ((short)num);
 
 	return ((int)num);
@@ -68,14 +68,14 @@ long int convert_size_number(long int num, int sizes)
 /**
  * convert_size_unsigned - Cast
  * @num: Num
- * @size: Num
+ * @sizes: Num
  * Return: Cast
  */
 long int convert_size_unsigned(unsigned long int num, int sizes)
 {
-	if (size == S_LONG)
+	if (sizes == S_LONG)
 		return (num);
-	else if (size == S_SHORT)
+	else if (sizes == S_SHORT)
 		return ((unsigned short)num);
 
 	return ((unsigned int)num);

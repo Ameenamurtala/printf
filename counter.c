@@ -1,7 +1,9 @@
 #include "main.h"
 /**
  * get_flags - counter
- * @format: String * Return: counter
+ * @format: String
+ * @p: Pointer
+ * Return: flag
  */
 int get_flags(const char *format, int *p)
 {
@@ -19,11 +21,11 @@ int get_flags(const char *format, int *p)
 				break;
 			}
 
-		if (FLAGS_CH[k] == 0)
+		if (FLAGS_CH[i] == 0)
 			break;
 	}
 
-	i%% = curr_i - 1;
+	i  = curr_i - 1;
 
 	return (flag);
 }

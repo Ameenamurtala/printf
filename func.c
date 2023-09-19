@@ -3,15 +3,15 @@
 /**
  * print_unsigned - Prints
  * @types: Argument
- * @bee: Bee
- * @flags: flags
+ * @buffer: buffer
+ * @flag: flag
  * @width: width
- * @size: Size specifier
- * @precision: Precision spec
- * Return: Number of chars printed
+ * @sizes: Sizes
+ * @prec: Prec
+ * Return: Num
  */
-int print_unsigned(va_list types, char bee[],
-		int flags, int width, int size, int precision)
+int print_unsigned(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	int k = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
@@ -19,30 +19,30 @@ int print_unsigned(va_list types, char bee[],
 	num = convert_size_unsgnd(num, size);
 
 	if (num == 0)
-		bee[k--] = '0';
-	bee[BUFF_SIZE - 1] = '\0';
+		buffer[k--] = '0';
+	buffer[BUFF_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
-		bee[k--] = (num % 10) + '0';
+		buffer[k--] = (num % 10) + '0';
 		num /= 10;
 	}
 	k++;
-	return (write_unsgnd(0, k, bee, flags, width, size, precision));
+	return (write_unsgnd(0, k, buffer, flag, sizes, width, prec));
 }
 
 /**
- * print_octal - Prints unsgned
+ * print_octal - Print
  * @types: List
- * @bee: Bee
- * @flags: Flags
+ * @buffer: Buffer
+ * @flag: Flag
  * @width: width
- * @size: Size
- * @precision: Precision
+ * @sizes: Sizes
+ * @prec: Prec
  * Return: Num
  */
-int print_octal(va_list types, char bee[],
-		int flags, int width, int size, int precision)
+int print_octal(va_list types, char buffer[],
+		int flag, int sizes,  int width, int prec)
 {
 	int m = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
@@ -58,63 +58,63 @@ int print_octal(va_list types, char bee[],
 
 	while (num > 0)
 	{
-		bee[m--] = (num % 8) + '0';
+		buffer[m--] = (num % 8) + '0';
 		num /= 8;
 	}
 
-	if (flags & F_HASH && init_num != 0)
-		bee[m--] = '0';
+	if (flag & F_HASH && init_num != 0)
+		buffer[m--] = '0';
 	m++;
-	return (write_unsgnd(0, m, bee, flags, width, precision, size));
+	return (write_unisgned(0, m, buffer, flag, sizes, width, prec));
 }
 
 /**
  * print_hexadecimal - Prints
  * @types: Argument
- * @bee: Bee
- * @flags: Flags
+ * @buffer: Buffer
+ * @flag: Flag
  * @width: Width
- * @size: Size
- * @precision: Precision
+ * @sizes: Sizes
+ * @prec: Prec
  * Return: Num
  */
-int print_hexadecimal(va_list types, char bee[],
-		int flags, int width, int size, int precision)
+int print_hexadecimal(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
-	return (print_hexa(types, "0123456789abcdef", bee,
-				flags, 'x', width, size, precision));
+	return (print_hexa(types, "0123456789abcdef", buffer,
+				flag, 'x', sizes, width, prec));
 }
 /**
  * print_hexa_upper - Prints
- * @types: List of argument
- * @bee: Bee
- * @flags: flags
+ * @types: List
+ * @buffer: Buffer
+ * @flag: flag
  * @width: Width
- * @size: Size
- * @precision: Precision
- * Return: Numbers of chars
+ * @sizes: Sizes
+ * @prec: Prec
+ * Return: Num
  */
-int print_hexa_upper(va_list types, char bee[],
-		int flags, int width, int size, int precision)
+int print_hexa_upper(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
-	return (print_hexa(types, "0123456789ABCDEF", bee,
-				flags, 'X', width, size, precision));
+	return (print_hexa(types, "0123456789ABCDEF", buffer,
+				flag, 'X', sizes, width, prec));
 }
 
 /**
  * print_hexa - Prints
  * @types: Argument
- * @width: get width
- * @bee: Bee
- * @map_to: Array of values
- * @flag_ch: Flags
- * @flags: Flags
- * @size: Size
- * @precision: Prec
+ * @width: width
+ * @buffer: Buffer
+ * @map_to: Array
+ * @flag_ch: Flag
+ * @flag: Flag
+ * @sizes: Sizes
+ * @prec: Prec
  * Return: Num
  */
-int print_hexa(va_list types, char map_to[], char bee[],
-		int flags, char flag_ch, int size, int width, int precision)
+int print_hexa(va_list types, char map_to[], char buffer[],
+		int flag, char flag_ch, int sizes, int width, int prec)
 {
 	int j = BUFF_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
@@ -124,21 +124,21 @@ int print_hexa(va_list types, char map_to[], char bee[],
 	num = convert_size_unsgnd(num, size);
 
 	if (num == 0)
-		bee[j--] = '0';
+		buffer[j--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
-		bee[j--] = map_to[num % 16];
+		buffer[j--] = map_to[num % 16];
 		num /= 16;
 	}
 
-	if (flags & F_HASH && init_num != 0)
+	if (flag & F_HASH && init_num != 0)
 	{
-		bee[j--] = flag_ch;
-		bee[j--] = '0';
+		buffer[j--] = flag_ch;
+		buffer[j--] = '0';
 	}
 	j++;
 
-	return (write_unsgnd(0, j, bee, flags, width, size, precision));
+	return (write_unsgnd(0, j, buffer, flag, size, width, prec));
 }

@@ -3,20 +3,20 @@
 /**
  * print_char - Print char
  * @types: Argument
- * @buffer: Bee
+ * @buffer: Buff
  * @sizes: Sizes
  * @prec: prec
- * @flags: flag
+ * @flag: flag
  * @width: Width
  * Return: Num
  */
-int print_char(va_list types, char buffer[],int flag, int size,
+int print_char(va_list types, char buffer[], int flag, int sizes,
 		 int width, int prec)
 {
 	char c = va_arg(types, int);
 
-	return (handle_write_char(c, buffer, flags,
-				size, width, prec));
+	return (handle_write_char(c, buffer, flag,
+				sizes, width, prec));
 }
 
 /**
@@ -38,10 +38,10 @@ int print_binary(va_list types, char buffer[],
 	int count;
 
 	UNUSED(buffer);
-	UNUSED(sizes);
-	UNUSED(prec);
 	UNUSED(flag);
+	UNUSED(sizes);
 	UNUSED(width);
+	UNUSED(prec);
 
 	a[0] = b / c;
 	b = va_arg(types, unsigned int);
@@ -58,9 +58,9 @@ int print_binary(va_list types, char buffer[],
 
 		if (sum || i == 31)
 		{
-			char z = '0' + a[i];
+			char x = '0' + a[i];
 
-			write(1, &z, 1);
+			write(1, &x, 1);
 			count++;
 		}
 	}
@@ -84,24 +84,24 @@ int print_int(va_list types, char buffer[],
 	int j = BUFF_SIZE - 2;
 	int is_negative = 0;
 	long int a = va_arg(types, long int);
-	unsigned long int add;
+	unsigned long int num;
 
 	a = convert_size_number(a, size);
 
 	if (a == 0)
 		buffer[j--] = '0';
 	buffer[BUFF_SIZE - 1] = '\0';
-	add = (unsigned long int)a;
+	num = (unsigned long int)a;
 
 	if (a < 0)
 	{
-		add = (unsigned long int)((-1) * a);
+		num = (unsigned long int)((-1) * a);
 		is_negative = 1;
 	}
-	while (add > 0)
+	while (num > 0)
 	{
-		buffer[j--] = (add % 10) + '0';
-		add /= 10;
+		buffer[j--] = (num % 10) + '0';
+		num /= 10;
 	}
 	j++;
 	return (write_number(is_negative, j, buffer, flag, sizes, width, prec));
@@ -111,15 +111,15 @@ int print_int(va_list types, char buffer[],
  * print_percent - Percent
  * @types: Arguments
  * @buffer: buffer
- * @sizes: Sizse
+ * @sizes: Sizes
  * @prec: Prec
- * @flag: flags
+ * @flag: flag
  * @width: Width
  * Return: Num
  */
 
 int print_percent(va_list types, char buffer[],
-		int flag, int sizes, int width,  int prec)
+		int flag, int sizes, int width, int prec)
 {
 	UNUSED(types);
 	UNUSED(buffer);
@@ -135,7 +135,7 @@ int print_percent(va_list types, char buffer[],
  * print_string - A string
  * @types: Arguments
  * @buffer: Buffer
- * @sizes: Size
+ * @sizes: Sizes
  * @prec: Prec
  * @flag: Flag
  * @width: width
@@ -161,7 +161,7 @@ int print_string(va_list types, char buffer[], int flag, int sizes, int width,
 	}
 	while (str[length] != '\0')
 		length++;
-	if (prec>= 0 && prec < len)
+	if (prec >= 0 && prec < length)
 		length = prec;
 	if (width > length)
 	{
