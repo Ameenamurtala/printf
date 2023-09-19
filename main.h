@@ -74,7 +74,7 @@ int handle_print(const char *fmt, int *p,
 va_list list, char buffer[], int flag, int sizes, int width, int prec);
 
 void print_buffer(char buffer[], int *buff_ind);
-int get_flag(const char *format, int *p);
+int get_flags(const char *format, int *p);
 int get_width(const char *format, int *p, va_list list);
 int get_prec(const char *format, int *p, va_list list);
 int get_sizes(const char *format, int *p);
