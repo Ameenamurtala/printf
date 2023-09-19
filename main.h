@@ -39,72 +39,72 @@ struct fmt
 typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
-int handle_print(const char *fmt, int *i,
-va_list list, char bee[], int flags, int width, int precision, int size);
+int handle_print(const char *fmt, int *p,
+va_list list, char buffer[], int flag, int sizes, int width, int prec);
 
-int print_char(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_string(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_percent(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_char(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_string(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_percent(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
-int print_int(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_beenary(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_unsigned(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_octal(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_hexadecimal(va_list types, char bee[],
-	int flags, int width, int precision, int size);
-int print_hexa_upper(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_int(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_binary(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_unsigned(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_octal(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_hexadecimal(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
+int print_hexa_upper(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
 int print_hexa(va_list types, char map_to[],
-char bee[], int flags, char flag_ch, int width, int precision, int size);
+char buffer[], int flag, char flag_ch, int sizes, int width, int prec);
 
-int print_non_printable(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_non_printable(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
-int print_pointer(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_pointer(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
 int _printf(const char *format, ...);
-int handle_print(const char *fmt, int *i,
-va_list list, char bee[], int flags, int width, int precision, int size);
+int handle_print(const char *fmt, int *p,
+va_list list, char buffer[], int flag, int sizes, int width, int prec);
 
-void print_bee(char bee[], int *buff_ind);
-int get_counter(const char *format, int *i);
-int get_meenah(const char *format, int *i, va_list list);
-int get_eze(const char *format, int *i, va_list list);
-int get_boss(const char *format, int *i);
+void print_buffer(char buffer[], int *buff_ind);
+int get_flag(const char *format, int *p);
+int get_width(const char *format, int *p, va_list list);
+int get_prec(const char *format, int *p, va_list list);
+int get_sizes(const char *format, int *p);
 
-int print_reverse(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_reverse(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
-int print_rot13string(va_list types, char bee[],
-	int flags, int width, int precision, int size);
+int print_rot13string(va_list types, char buffer[],
+	int flag, int sizes, int width, int prec);
 
-int handle_write_char(char c, char bee[],
-	int flags, int width, int precision, int size);
-int write_number(int is_positive, int ind, char bee[],
-	int flags, int width, int precision, int size);
-int write_num(int ind, char bee[], int flags, int width, int precision,
-	int len, char padd, char extra_c);
-int write_pointer(char bee[], int ind, int len,
-	int width, int flags, char padd, char extra_c, int padd_start);
+int handle_write_char(char c, char buffer[],
+	int flag, int sizes, int width, int prec);
+int write_number(int is_positive, int ind, char buffer[],
+	int flag, int width, int prec);
+int write_num(int ind, char buffer[], int flag, int width, int prec,
+	int length, char padd, char extra_c);
+int write_pointer(char buffer[], int ind, int length,
+	int width, int flag, char padd, char extra_c, int padd_start);
 
 int write_unsigned(int is_negative, int ind,
-char bee[],
-	int flags, int width, int precision, int size);
+char buffer[],
+	int flag, int sizes, int width, int prec);
 
 int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
 
-long int convert_size_number(long int num, int size);
-long int convert_size_unsigned(unsigned long int num, int size);
+long int convert_size_number(long int num, int sizes);
+long int convert_size_unsigned(unsigned long int num, int sizes);
 
 #endif

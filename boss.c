@@ -1,24 +1,24 @@
 #include "main.h"
 /**
- * get_eze - Cal
+ * get_size - Cal
  * @format: Formatted
- * @i: List
- * Return: eze
+ * @p: List
+ * Return: size
  */
-int get_eze(const char *format, int *i)
+int get_bsize(const char *format, int *p)
 {
-	int curr_i = *i + 1;
-	int eze = 0;
+	int curr_i = *p + 1;
+	int sizes = 0;
 
 	if (format[curr_i] == 'l')
-		eze = S_LONG;
+		size = S_LONG;
 	else if (format[curr_i] == 'h')
-		eze = S_SHORT;
+		sizes = S_SHORT;
 
-	if (eze == 0)
-		*i = curr_i - 1;
+	if (sizes == 0)
+		*p = curr_i - 1;
 	else
-		*i = curr_i;
+		*p = curr_i;
 
-	return (eze);
+	return (size);
 }

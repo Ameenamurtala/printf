@@ -3,43 +3,44 @@
 /**
  * print_char - Print char
  * @types: Argument
- * @bee: Bee
- * @size: Size
- * @precision: Precision
- * @flags: flags
- * @width: Widths
- * Return: Number of chars
+ * @buffer: Bee
+ * @sizes: Sizes
+ * @prec: prec
+ * @flags: flag
+ * @width: Width
+ * Return: Num
  */
-int print_char(va_list types, char bee[], int size,
-		int precision, int flags, int width)
+int print_char(va_list types, char buffer[],int flag, int size,
+		 int width, int prec)
 {
 	char c = va_arg(types, int);
 
-	return (handle_write_char(c, flags, size, width, bee, precision));
+	return (handle_write_char(c, buffer, flags,
+				size, width, prec));
 }
 
 /**
- * print_binary - unsgnd
+ * print_binary - unsigned
  * @types: Argument
- * @bee: Bee
- * @size: Size
- * @precision: Precision
- * @flags: flags
+ * @buffer: buffer
+ * @sizes: Sizes
+ * @prec: Prec
+ * @flag: flag
  * @width: Width
  * Return: count
  */
 
-int print_beenary(va_list types, char bee[],
-		int size, int precision, int flags, int width)
+int print_binary(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	unsigned int b, c, i, sum;
 	unsigned int a[32];
 	int count;
 
-	UNUSED(bee);
-	UNUSED(size);
-	UNUSED(precision);
-	UNUSED(flags);
+	UNUSED(buffer);
+	UNUSED(sizes);
+	UNUSED(prec);
+	UNUSED(flag);
 	UNUSED(width);
 
 	a[0] = b / c;
@@ -69,16 +70,16 @@ int print_beenary(va_list types, char bee[],
 /**
  * print_int - Print int
  * @types: Argumt
- * @bee: Bee
- * @size: Size
- * @precision: Precision
- * @flags: flags
+ * @buffer: buffer
+ * @sizes: Sizes
+ * @prec: Prec
+ * @flag: flag
  * @width: width
  * Return: Num
  */
 
-int print_int(va_list types, char bee[],
-		int size, int precision, flags, int width)
+int print_int(va_list types, char buffer[],
+		int flag, int sizes, int width, int prec)
 {
 	int j = BUFF_SIZE - 2;
 	int is_negative = 0;
@@ -88,8 +89,8 @@ int print_int(va_list types, char bee[],
 	a = convert_size_number(a, size);
 
 	if (a == 0)
-		bee[j--] = '0';
-	bee[BUFF_SIZE - 1] = '\0';
+		buffer[j--] = '0';
+	buffer[BUFF_SIZE - 1] = '\0';
 	add = (unsigned long int)a;
 
 	if (a < 0)
@@ -99,33 +100,33 @@ int print_int(va_list types, char bee[],
 	}
 	while (add > 0)
 	{
-		bee[j--] = (add % 10) + '0';
+		buffer[j--] = (add % 10) + '0';
 		add /= 10;
 	}
 	j++;
-	return (write_number(iss_neg, i, bee, precision, size, flags, width));
+	return (write_number(is_negative, j, buffer, flag, sizes, width, prec));
 }
 
 /**
  * print_percent - Percent
  * @types: Arguments
- * @bee: Bee
- * @size: Size
- * @precision: Precision spec
- * @flags: flags
+ * @buffer: buffer
+ * @sizes: Sizse
+ * @prec: Prec
+ * @flag: flags
  * @width: Width
  * Return: Num
  */
 
-int print_percent(va_list types, char bee[],
-		int size, int precision, int flags, int width)
+int print_percent(va_list types, char buffer[],
+		int flag, int sizes, int width,  int prec)
 {
 	UNUSED(types);
-	UNUSED(bee);
-	UNUSED(size);
-	UNUSED(precision);
-	UNUSED(flags);
+	UNUSED(buffer);
+	UNUSED(flag);
+	UNUSED(sizes);
 	UNUSED(width);
+	UNUSED(prec);
 
 	return (write(1, "%%", 1));
 }
@@ -133,51 +134,51 @@ int print_percent(va_list types, char bee[],
 /**
  * print_string - A string
  * @types: Arguments
- * @bee: Bee
- * @size: Size
- * @precision: Precision
- * @flags: Flags
+ * @buffer: Buffer
+ * @sizes: Size
+ * @prec: Prec
+ * @flag: Flag
  * @width: width
  * Return: Num of chars
  */
-int print_string(va_list types, char bee[], int size, int size,
-		int precision, int flags, int width)
+int print_string(va_list types, char buffer[], int flag, int sizes, int width,
+		int prec)
 {
-	int len = 0, i;
+	int length = 0, j;
 	char *str = va_arg(types, char *);
 
-	UNUSED(bee);
-	UNUSED(size);
-	UNUSED(precision);
-	UNUSED(flags);
+	UNUSED(buffer);
+	UNUSED(flag);
+	UNUSED(sizes);
 	UNUSED(width);
+	UNUSED(prec);
 
 	if (str == NULL)
 	{
 		str = "(null)";
-		if (precision >= 6)
+		if (prec >= 6)
 			str = "      ";
 	}
-	while (str[len] != '\0')
-		len++;
-	if (precision >= 0 && precision < len)
-		len = precision;
-	if (width > len)
+	while (str[length] != '\0')
+		length++;
+	if (prec>= 0 && prec < len)
+		length = prec;
+	if (width > length)
 	{
 		if (flags & F_MINUS)
 		{
-			write(1, &str[0], len);
-			for (i = width - len; i > 0; i--)
+			write(1, &str[0], length);
+			for (j = width - length; j > 0; j--)
 				write(1, " ", 1);
 			return (width);
 		}
 		else
 		{
-			for (i = width - len; i > 0; i--)
+			for (j = width - length; j > 0; j--)
 				write(1, " ", 1);
-			write(1, &str[0], len);
+			write(1, &str[0], length);
 			return (width);
 		}
 	}
-	return (write(1, str, len));
+	return (write(1, str, length));
 }

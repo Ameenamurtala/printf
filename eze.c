@@ -1,15 +1,15 @@
 #include "main.h"
 /**
- * get_eze- Cal
+ * get_prec- Cal
  * @format: Formatted
- * @i: List
+ * @p: List
  * @list: list
  * Return: eze
  */
-int get_eze(const char *format, int *i, va_list list)
+int get_prec(const char *format, int *p, va_list list)
 {
 	int curr_i = *i + 1;
-	int eze = -1;
+	int prec = -1;
 
 	if (format[curr_i] != '.')
 		return (eze);
@@ -20,13 +20,13 @@ int get_eze(const char *format, int *i, va_list list)
 	{
 		if (is_digit(format[curr_i]))
 		{
-			eze *= 10;
-			eze += format[curr_i] - '0';
+			prec *= 10;
+			prec += format[curr_i] - '0';
 		}
 		else if (format[curr_i] == '*')
 		{
 			curr_i++;
-			eze = va_arg(list, int);
+			prec = va_arg(list, int);
 			break;
 		}
 		else
@@ -35,5 +35,5 @@ int get_eze(const char *format, int *i, va_list list)
 
 	*i = curr_i - 1;
 
-	return (eze);
+	return (prec);
 }

@@ -15,23 +15,23 @@ int is_printable(char c)
 
 /**
  * append_hexa_code - Ap
- * @bee: Arr
+ * @buffer: Arr
  * @i: Index
  * @ascii_code: ASSCI
  * Return: Always 3
  */
-int append_hexa_code(char ascii_code, char bee[], int i)
+int append_hexa_code(char ascii_code, char buffer[], int p)
 {
 	char map_to[] = "0123456789ABCDEF";
 
 	if (ascii_code < 0)
 		ascii_code *= -1;
 
-	bee[i++] = '\\';
-	bee[i++] = 'x';
+	buffer[p++] = '\\';
+	buffer[p++] = 'x';
 
-	bee[i++] = map_to[ascii_code / 16];
-	bee[i] = map_to[ascii_code % 16];
+	buffer[p++] = map_to[ascii_code / 16];
+	buffer[p] = map_to[ascii_code % 16];
 
 	return (3);
 }
@@ -55,7 +55,7 @@ int is_digit(char c)
  * @size: Num
  * Return: Cast
  */
-long int convert_size_number(long int num, int size)
+long int convert_size_number(long int num, int sizes)
 {
 	if (size == S_LONG)
 		return (num);
@@ -66,12 +66,12 @@ long int convert_size_number(long int num, int size)
 }
 
 /**
- * convert_size_unsgnd - Cast
+ * convert_size_unsigned - Cast
  * @num: Num
  * @size: Num
  * Return: Cast
  */
-long int convert_size_unsgnd(unsigned long int num, int size)
+long int convert_size_unsigned(unsigned long int num, int sizes)
 {
 	if (size == S_LONG)
 		return (num);

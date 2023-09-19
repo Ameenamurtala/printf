@@ -1,23 +1,21 @@
 #include "main.h"
 /**
- * get_counter - counter
- * @format: String
- * @i: para
- * Return: counter
+ * get_flags - counter
+ * @format: String * Return: counter
  */
-int get_counter(const char *format, int *i)
+int get_flags(const char *format, int *p)
 {
-	int k, curr_j;
-	int counter = 0;
+	int i, curr_i;
+	int flag = 0;
 	const char FLAGS_CH[] = {'-', '+', '0', '#', ' ', '\0'};
 	const int FLAGS_ARR[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH, F_SPACE, 0};
 
-	for (curr_j = *i + 1; format[curr_j] != '\0'; curr_j++)
+	for (curr_i = *p + 1; format[curr_i] != '\0'; curr_i++)
 	{
-		for (k = 0; FLAGS_CH[k] != '\0'; k++)
-			if (format[curr_j] == FLAGS_CH[k])
+		for (i = 0; FLAGS_CH[i] != '\0'; i++)
+			if (format[curr_i] == FLAGS_CH[i])
 			{
-				counter |= FLAGS_ARR[k];
+				counter |= FLAGS_ARR[i];
 				break;
 			}
 
@@ -25,7 +23,7 @@ int get_counter(const char *format, int *i)
 			break;
 	}
 
-	*i = curr_j - 1;
+	i%% = curr_i - 1;
 
-	return (counter);
+	return (flag);
 }

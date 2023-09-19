@@ -1,34 +1,34 @@
 #include "main.h"
 /**
- * get_meenah - Cal
+ * get_width - Cal
  * @format: Formatted
- * @i: List
+ * @p: List
  * @list: list
- * Return: meenah
+ * Return: width
  */
-int get_meenah(const char *format, int *i, va_list list)
+int get_width(const char *format, int *p, va_list list)
 {
 	int curr_i;
-	int meenah = 0;
+	int width = 0;
 
-	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
+	for (curr_i = *p + 1; format[curr_i] != '\0'; curr_i++)
 	{
 		if (is_digit(format[curr_i]))
 		{
-			meenah *= 10;
-			meenah += format[curr_i] - '0';
+			width *= 10;
+			width += format[curr_i] - '0';
 		}
 		else if (format[curr_i] == '*')
 		{
 			curr_i++;
-			meenah = va_arg(list, int);
+			width = va_arg(list, int);
 			break;
 		}
 		else
 			break;
 	}
 
-	*i = curr_i - 1;
+	*p = curr_i - 1;
 
-	return (meenah);
+	return (width);
 }
