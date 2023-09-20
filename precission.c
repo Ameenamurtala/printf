@@ -1,8 +1,8 @@
 #include "main.h"
 /**
  * get_prec- Cal
- * @format: Fo
- * @i: List
+ * @format: Formatted
+ * @p: List
  * @list: list
  * Return: prec
  */
@@ -13,6 +13,7 @@ int get_prec(const char *format, int *i, va_list list)
 
 	if (format[curr_i] != '.')
 		return (precision);
+
 	precision = 0;
 
 	for (curr_i += 1; format[curr_i] != '\0'; curr_i++)

@@ -1,7 +1,7 @@
 #include "main.h"
 /**
- * get_width - Cal
- * @format: For
+ * get_width - Calculates the width for printing
+ * @format: Formatted
  * @p: List
  * @list: list
  * Return: width

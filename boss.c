@@ -1,8 +1,8 @@
 #include "main.h"
 /**
- * get_sizes - Cal
+ * get_size - Cal
  * @format: Formatted
- * @i: List
+ * @p: List
  * Return: size
  */
 int get_sizes(const char *format, int *i)
@@ -14,9 +14,11 @@ int get_sizes(const char *format, int *i)
 		size = S_LONG;
 	else if (format[curr_i] == 'h')
 		size = S_SHORT;
+
 	if (size == 0)
 		*i = curr_i - 1;
 	else
 		*i = curr_i;
+
 	return (size);
 }
