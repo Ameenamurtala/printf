@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * handle_print - P
+ * handling - P
  * @fmt: Fmt
  * @list: List
  * @ind: ind

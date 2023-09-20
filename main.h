@@ -62,10 +62,10 @@ int print_hexa_upper(va_list types, char buffer[],
 int print_hexa(va_list types, char map_to[],
 char buffer[], int flags, char flag_ch, int width, int precision, int size);
 
-int print_non_printable(va_list types, char buffer[],
+int print_painter(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
-int print_pointer(va_list types, char buffer[],
+int print_printer(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
 int get_flags(const char *format, int *j);
@@ -73,10 +73,10 @@ int get_width(const char *format, int *j, va_list list);
 int get_precision(const char *format, int *j, va_list list);
 int get_size(const char *format, int *j);
 
-int print_reverse(va_list types, char buffer[],
+int print_adverse(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
-int print_rot13string(va_list types, char buffer[],
+int print_stringgg(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
 int handle_write_char(char c, char buffer[],
