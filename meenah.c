@@ -1,49 +1,34 @@
 #include "main.h"
 /**
- * handle_print - Print
- * @fmt: Fmt
- * @list: List
- * @ind: ind
- * @buffer: Buff
- * @flags: Cal
- * @width: width.
- * @precision: Prec
- * @size: Size
- * Return: 1 or 2;
+ * get_width - Calculates the width for printing
+ * @format: Formatted
+ * @p: List
+ * @list: list
+ * Return: width
  */
-int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
-	int flags, int width, int precision, int size)
+int get_width(const char *format, int *p, va_list list)
 {
-	int k, unknow_len = 0, printed_chars = -1;
-	fmt_t fmt_types[] = {
-		{'c', print_char}, {'s', print_string}, {'%', print_percent},
-		{'i', print_int}, {'d', print_int}, {'b', print_binary},
-		{'u', print_unsigned}, {'o', print_octal}, {'x', print_hexadecimal},
-		{'X', print_hexa_upper}, {'p', print_pointer}, {'S', print_non_printable},
-		{'r', print_reverse}, {'R', print_rot13string}, {'\0', NULL}
-	};
-	for (k = 0; fmt_types[k].fmt != '\0'; k++)
-		if (fmt[*ind] == fmt_types[k].fmt)
-			return (fmt_types[k].fn(list, buffer, flags, width, precision, size));
+	int curr_i;
+	int width = 0;
 
-	if (fmt_types[k].fmt == '\0')
+	for (curr_i = *p + 1; format[curr_i] != '\0'; curr_i++)
 	{
-		if (fmt[*ind] == '\0')
-			return (-1);
-		unknow_len += write(1, "%%", 1);
-		if (fmt[*ind - 1] == ' ')
-			unknow_len += write(1, " ", 1);
-		else if (width)
+		if (is_digit(format[curr_i]))
 		{
-			--(*ind);
-			while (fmt[*ind] != ' ' && fmt[*ind] != '%')
-				--(*ind);
-			if (fmt[*ind] == ' ')
-				--(*ind);
-			return (1);
+			width *= 10;
+			width += format[curr_i] - '0';
 		}
-		unknow_len += write(1, &fmt[*ind], 1);
-		return (unknow_len);
+		else if (format[curr_i] == '*')
+		{
+			curr_i++;
+			width = va_arg(list, int);
+			break;
+		}
+		else
+			break;
 	}
-	return (printed_chars);
+
+	*p = curr_i - 1;
+
+	return (width);
 }

@@ -1,15 +1,14 @@
 #include "main.h"
 /**
- * get_precision - Cal
- * @format: Fmt
- * @j: argument
+ * get_prec- Cal
+ * @format: Formatted
+ * @p: List
  * @list: list
- *
- * Return: Prec
+ * Return: prec
  */
-int get_precision(const char *format, int *j, va_list list)
+int get_prec(const char *format, int *i, va_list list)
 {
-	int curr_i = *j + 1;
+	int curr_i = *i + 1;
 	int precision = -1;
 
 	if (format[curr_i] != '.')
@@ -34,7 +33,7 @@ int get_precision(const char *format, int *j, va_list list)
 			break;
 	}
 
-	*j = curr_i - 1;
+	*i = curr_i - 1;
 
 	return (precision);
 }
