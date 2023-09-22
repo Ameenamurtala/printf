@@ -1,12 +1,7 @@
 #include "main.h"
 /**
-<<<<<<< HEAD
- * handling - P
- * @fmt: Fmt
-=======
  * handle_print - Prints
  * @fmt: Format
->>>>>>> 3ce4b0faabb6b3e904a03e6b29bc702956c782ef
  * @list: List
  * @ind: imd
  * @buffer: Buffer

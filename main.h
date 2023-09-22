@@ -64,19 +64,11 @@ int print_hexa_upper(va_list types, char buffer[],
 int print_hexa(va_list types, char map_to[],
 char buffer[], int flag, char flag_ch, int sizes, int width, int prec);
 
-<<<<<<< HEAD
-int print_painter(va_list types, char buffer[],
-	int flags, int width, int precision, int size);
-
-int print_printer(va_list types, char buffer[],
-	int flags, int width, int precision, int size);
-=======
 int print_non_printable(va_list types, char buffer[],
 	int flag, int sizes, int width, int prec);
 
 int print_pointer(va_list types, char buffer[],
 	int flag, int sizes, int width, int prec);
->>>>>>> 3ce4b0faabb6b3e904a03e6b29bc702956c782ef
 
 int handle_print(const char *fmt, int *p,
 va_list list, char buffer[], int flag, int sizes, int width, int prec);
@@ -87,19 +79,11 @@ int get_width(const char *format, int *p, va_list list);
 int get_prec(const char *format, int *p, va_list list);
 int get_sizes(const char *format, int *p);
 
-<<<<<<< HEAD
-int print_adverse(va_list types, char buffer[],
-	int flags, int width, int precision, int size);
-
-int print_stringgg(va_list types, char buffer[],
-	int flags, int width, int precision, int size);
-=======
 int print_reverse(va_list types, char buffer[],
 	int flag, int sizes, int width, int prec);
 
 int print_rot13string(va_list types, char buffer[],
 	int flag, int sizes, int width, int prec);
->>>>>>> 3ce4b0faabb6b3e904a03e6b29bc702956c782ef
 
 int handle_write_char(char c, char buffer[],
 	int flag, int sizes, int width, int prec);
