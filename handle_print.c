@@ -5,10 +5,10 @@
  * @list: List
  * @ind: imd
  * @buffer: Buffer
- * @flag: Cal
+ * @flags: Cal
  * @width: width
- * @prec: Prec
- * @sizes: Size
+ * @precision: Prec
+ * @size: Size
  * Return: 1 or 2;
  */
 int handle_print(const char *fmt, int *ind, va_list list, char buffer[],

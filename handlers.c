@@ -184,7 +184,7 @@ int write_unsigned(int is_negative, int ind,
  * @ind: Index
  * @flag: Flag
  * @width: Width
- * @len: Len
+ * @length: Len
  * @padd: Char
  * @extra_c: Char
  * @padd_start: Index

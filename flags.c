@@ -3,7 +3,7 @@
 /**
  * get_flags - counts active flags
  * @format: String
- * @p: Pointer
+ * @i: Pointer
  * Return: flag
  */
 int get_flags(const char *format, int *i)

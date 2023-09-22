@@ -33,7 +33,7 @@ struct fmt
 /**
  * typedef struct fmt fmt_t - Struct
  * @fmt: The format.
- * @fm_t: The function associated.
+ * @fm_t: The function
  */
 typedef struct fmt fmt_t;
 
@@ -104,5 +104,4 @@ int is_digit(char);
 
 long int convert_size_number(long int num, int sizes);
 long int convert_size_unsigned(unsigned long int num, int sizes);
-
 #endif

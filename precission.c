@@ -2,7 +2,7 @@
 /**
  * get_prec- Cal
  * @format: Formatted
- * @p: List
+ * @i: List
  * @list: list
  * Return: prec
  */
